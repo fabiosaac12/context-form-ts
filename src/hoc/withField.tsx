@@ -1,15 +1,15 @@
-import React, { useState, useEffect } from 'react'
-import { useField } from '../hooks'
-import { InnerFieldProps } from '../Field'
-import { Field } from '../models/Field'
+import React, { useState, useEffect } from 'react';
+import { useField } from '../hooks';
+import { InnerFieldProps } from '../Field';
+import { Field } from '../models/Field';
 
 export const withField: (InnerField: React.FC<InnerFieldProps>) => Field = (
-  InnerField
+  InnerField,
 ) => ({ defaultValue, ...props }) => {
-  const [hasChanged, setHasChanged] = useState(false)
-  const [hasBeenTouched, setHasBeenTouched] = useState(false)
+  const [hasChanged, setHasChanged] = useState(false);
+  const [hasBeenTouched, setHasBeenTouched] = useState(false);
 
-  const getContextValue = useField()
+  const getContextValue = useField();
 
   const {
     setDefaultValue,
@@ -17,27 +17,27 @@ export const withField: (InnerField: React.FC<InnerFieldProps>) => Field = (
     hasTriedToSubmit,
     setResetFieldFunction,
     ...contextValue
-  } = getContextValue(props.name)
+  } = getContextValue(props.name);
 
   useEffect(() => {
     if (defaultValue !== undefined) {
-      contextValue.setValue(defaultValue)
-      setDefaultValue(defaultValue)
+      contextValue.setValue(defaultValue);
+      setDefaultValue(defaultValue);
     }
 
-    setValidateFunction(props.validate)
+    setValidateFunction(props.validate);
     setResetFieldFunction(() => {
-      setHasChanged(false)
-      setHasBeenTouched(false)
-    })
-  }, [])
+      setHasChanged(false);
+      setHasBeenTouched(false);
+    });
+  }, []);
 
   useEffect(() => {
     if (hasTriedToSubmit) {
-      setHasBeenTouched(true)
-      setHasChanged(true)
+      setHasBeenTouched(true);
+      setHasChanged(true);
     }
-  }, [hasTriedToSubmit])
+  }, [hasTriedToSubmit]);
 
   const propsToField = {
     ...props,
@@ -45,8 +45,8 @@ export const withField: (InnerField: React.FC<InnerFieldProps>) => Field = (
     hasChanged,
     hasBeenTouched,
     setHasChanged,
-    setHasBeenTouched
-  }
+    setHasBeenTouched,
+  };
 
-  return <InnerField {...propsToField} />
-}
+  return <InnerField {...propsToField} />;
+};

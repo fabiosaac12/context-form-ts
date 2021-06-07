@@ -1,4 +1,4 @@
-import React from 'react'
+import React from 'react';
 import {
   withForm,
   Field,
@@ -6,25 +6,25 @@ import {
   min,
   max,
   numeric,
-  compose
-} from 'context-form-ts'
-import { FieldChildren } from '../../dist/models/Field'
+  compose,
+} from 'context-form-ts';
+import { FieldChildren } from '../../dist/models/Field';
 
 const inputs = [
   {
     name: 'name',
     placeholder: 'Name',
-    validate: min(2, '2 characters minimum')
+    validate: min(2, '2 characters minimum'),
   },
   {
     name: 'lastName',
     placeholder: 'Last Name',
-    validate: max(20, '20 characters maximum')
+    validate: max(20, '20 characters maximum'),
   },
   {
     name: 'country',
     placeholder: 'Country',
-    validate: min(5, '5 characters minimum')
+    validate: min(5, '5 characters minimum'),
   },
   {
     name: 'age',
@@ -32,23 +32,23 @@ const inputs = [
     validate: compose(
       numeric('Must be a number'),
       min(0, '0 minimum'),
-      max(20, '20 maximum')
+      max(20, '20 maximum'),
     ),
-    type: 'number'
-  }
-]
+    type: 'number',
+  },
+];
 
 const renderInput: FieldChildren = ({ input, info, ...props }) => (
-  <div className='inputContainer'>
-    <input {...input} className='input' {...props} />
+  <div className="inputContainer">
+    <input {...input} className="input" {...props} />
     {!!info.error && info.hasBeenTouched && (
-      <div className='error'>{info.error}</div>
+      <div className="error">{info.error}</div>
     )}
   </div>
-)
+);
 
 const App = withForm(() => {
-  const form = useForm()
+  const form = useForm();
 
   return (
     <>
@@ -57,7 +57,7 @@ const App = withForm(() => {
       ))}
       <button onClick={form.handleSubmit(console.log)}>Submit</button>
     </>
-  )
-})
+  );
+});
 
-export default App
+export default App;

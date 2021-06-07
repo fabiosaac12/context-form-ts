@@ -1,27 +1,27 @@
-import { memo, Dispatch } from 'react'
-import { withField } from './hoc'
-import { ValidateFunction } from './models/ValidateFunction'
-import { ErrorMessage } from './models/ErrorMessage'
-import { Value } from './models/Value'
+import { memo, Dispatch } from 'react';
+import { withField } from './hoc';
+import { ValidateFunction } from './models/ValidateFunction';
+import { ErrorMessage } from './models/ErrorMessage';
+import { Value } from './models/Value';
 import {
   FieldChildren,
   FieldChildrenProps,
-  Field as FieldType
-} from './models/Field'
+  Field as FieldType,
+} from './models/Field';
 
 export interface InnerFieldProps {
-  children: FieldChildren
-  name: string
-  validate?: ValidateFunction<Value>
-  hasBeenTouched: boolean
-  hasChanged: boolean
-  error?: ErrorMessage
-  value: Value
-  setValue: Dispatch<Value>
-  setError: Dispatch<ErrorMessage | void>
-  setHasChanged: Dispatch<boolean>
-  setHasBeenTouched: Dispatch<boolean>
-  [key: string]: any
+  children: FieldChildren;
+  name: string;
+  validate?: ValidateFunction<Value>;
+  hasBeenTouched: boolean;
+  hasChanged: boolean;
+  error?: ErrorMessage;
+  value: Value;
+  setValue: Dispatch<Value>;
+  setError: Dispatch<ErrorMessage | void>;
+  setHasChanged: Dispatch<boolean>;
+  setHasBeenTouched: Dispatch<boolean>;
+  [key: string]: any;
 }
 
 export const Field: FieldType = withField(
@@ -49,41 +49,41 @@ export const Field: FieldType = withField(
             const {
               type,
               checked,
-              value: inputValue
-            } = target as HTMLInputElement
+              value: inputValue,
+            } = target as HTMLInputElement;
 
             const value =
               type === 'checkbox'
                 ? checked
                 : type === 'number'
                 ? +inputValue
-                : inputValue
+                : inputValue;
 
-            setValue(value)
-            !hasChanged && setHasChanged(true)
+            setValue(value);
+            !hasChanged && setHasChanged(true);
 
-            const newError = validate && validate(value)
-            newError !== error && setError(newError)
+            const newError = validate && validate(value);
+            newError !== error && setError(newError);
           },
           onBlur: () => {
             if (!hasBeenTouched) {
-              setHasBeenTouched(true)
+              setHasBeenTouched(true);
 
               if (!hasChanged) {
-                const newError = validate && validate(value || '')
-                newError !== error && setError(newError)
+                const newError = validate && validate(value || '');
+                newError !== error && setError(newError);
               }
             }
-          }
+          },
         },
         info: {
           hasBeenTouched,
           hasChanged,
-          error
-        }
-      }
+          error,
+        },
+      };
 
-      return children(propsToRender)
+      return children(propsToRender);
     },
     (prev, next) =>
       !(
@@ -91,6 +91,6 @@ export const Field: FieldType = withField(
         prev.hasChanged !== next.hasChanged ||
         prev.hasBeenTouched !== next.hasBeenTouched ||
         prev.error !== next.error
-      )
-  )
-)
+      ),
+  ),
+);

@@ -1,1 +1,1 @@
-export type FormStateValueSetter<T> = (name: string, value: T) => void
+export type FormStateValueSetter<T> = (name: string, value: T) => void;

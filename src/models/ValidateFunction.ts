@@ -1,3 +1,3 @@
-import { ErrorMessage } from './ErrorMessage'
+import { ErrorMessage } from './ErrorMessage';
 
-export type ValidateFunction<T> = (value: T) => ErrorMessage | void
+export type ValidateFunction<T> = (value: T) => ErrorMessage | void;

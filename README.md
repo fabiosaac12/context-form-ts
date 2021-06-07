@@ -13,14 +13,14 @@ npm install --save context-form-ts
 ## Usage
 
 ```tsx
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
-import MyComponent from 'context-form-ts'
-import 'context-form-ts/dist/index.css'
+import MyComponent from 'context-form-ts';
+import 'context-form-ts/dist/index.css';
 
 class Example extends Component {
   render() {
-    return <MyComponent />
+    return <MyComponent />;
   }
 }
 ```
