@@ -4,15 +4,17 @@ import { ErrorMessage } from '../models/ErrorMessage'
 export const min = (
   n: number,
   errorMessage: ErrorMessage = true
-): ValidateFunction<string> => (value) => {
-  if (!(value.length >= n)) return errorMessage
+): ValidateFunction<string | number> => (value) => {
+  if (!((typeof value === 'number' ? value : value.length) >= n))
+    return errorMessage
 }
 
 export const max = (
   n: number,
   errorMessage: ErrorMessage = true
-): ValidateFunction<string> => (value) => {
-  if (!(value.length <= n)) return errorMessage
+): ValidateFunction<string | number> => (value) => {
+  if (!((typeof value === 'number' ? value : value.length) <= n))
+    return errorMessage
 }
 
 export const email = (
@@ -37,7 +39,7 @@ export const alpha = (
 export const numeric = (
   errorMessage: ErrorMessage = true
 ): ValidateFunction<string> => (value) => {
-  if (!Boolean(/^[0-9]*$/i.exec(value))) return errorMessage
+  if (isNaN(Number(value))) return errorMessage
 }
 
 export const lowercase = (
@@ -60,12 +62,16 @@ export const compose = <T>(
   for (let fn of functions) {
     const newError = fn(value)
 
-    if (error) {
+    console.log(newError)
+
+    if (newError) {
       error = newError
 
       if (typeof newError === 'string') break
     }
   }
+
+  console.log(error)
 
   if (error) return error
 }

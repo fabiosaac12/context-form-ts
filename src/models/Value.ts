@@ -1,1 +1,1 @@
-export type Value = string | boolean
+export type Value = any

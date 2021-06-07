@@ -3,7 +3,7 @@ import { useField } from '../hooks'
 import { InnerFieldProps } from '../Field'
 import { Field } from '../models/Field'
 
-export const withField: (InnerField: React.SFC<InnerFieldProps>) => Field = (
+export const withField: (InnerField: React.FC<InnerFieldProps>) => Field = (
   InnerField
 ) => ({ defaultValue, ...props }) => {
   const [hasChanged, setHasChanged] = useState(false)

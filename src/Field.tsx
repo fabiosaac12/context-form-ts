@@ -12,7 +12,7 @@ import {
 export interface InnerFieldProps {
   children: FieldChildren
   name: string
-  validate: ValidateFunction<Value>
+  validate?: ValidateFunction<Value>
   hasBeenTouched: boolean
   hasChanged: boolean
   error?: ErrorMessage
@@ -29,7 +29,7 @@ export const Field: FieldType = withField(
     ({
       children,
       name,
-      validate = () => undefined,
+      validate,
       hasBeenTouched,
       hasChanged,
       error,
@@ -46,12 +46,23 @@ export const Field: FieldType = withField(
         input: {
           value: value === undefined ? '' : value,
           onChange: ({ target }) => {
-            const { type, checked, value } = target as HTMLInputElement
+            const {
+              type,
+              checked,
+              value: inputValue
+            } = target as HTMLInputElement
 
-            setValue(type === 'checkbox' ? checked : value)
+            const value =
+              type === 'checkbox'
+                ? checked
+                : type === 'number'
+                ? +inputValue
+                : inputValue
+
+            setValue(value)
             !hasChanged && setHasChanged(true)
 
-            const newError = validate(value)
+            const newError = validate && validate(value)
             newError !== error && setError(newError)
           },
           onBlur: () => {
@@ -59,7 +70,7 @@ export const Field: FieldType = withField(
               setHasBeenTouched(true)
 
               if (!hasChanged) {
-                const newError = validate(value || '')
+                const newError = validate && validate(value || '')
                 newError !== error && setError(newError)
               }
             }

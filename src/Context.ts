@@ -32,8 +32,8 @@ export type FieldContextProps = (
   value: Value
   setValue: (value: Value) => void
   error: ErrorMessage
-  setError: (error: ErrorMessage | undefined) => void
-  setValidateFunction: (fn: ValidateFunction<Value>) => void
+  setError: (error: ErrorMessage | void) => void
+  setValidateFunction: (fn?: ValidateFunction<Value>) => void
   defaultValue: Value
   setDefaultValue: (value: Value) => void
   setResetFieldFunction: (fn: () => void) => void

@@ -16,7 +16,7 @@ export const FormProvider: FC = ({ children }) => {
   const [values, setValues] = useState<FormState<Value>>({})
   const [errors, setErrors] = useState<FormState<ErrorMessage>>({})
   const [validateFunctions, setValidateFunctions] = useState<
-    FormState<ValidateFunction<Value>>
+    FormState<ValidateFunction<Value> | undefined>
   >({})
   const [defaultValues, setDefaultValues] = useState<FormState<Value>>({})
   const [hasTriedToSubmit, setHasTriedToSubmit] = useState(false)
@@ -36,7 +36,7 @@ export const FormProvider: FC = ({ children }) => {
       [name]: value
     }))
 
-  const setError: FormStateValueSetter<ErrorMessage | undefined> = (
+  const setError: FormStateValueSetter<ErrorMessage | void> = (
     name,
     error
   ) =>
@@ -47,7 +47,7 @@ export const FormProvider: FC = ({ children }) => {
           [name]: error
         }))
 
-  const setValidateFunction: FormStateValueSetter<ValidateFunction<Value>> = (
+  const setValidateFunction: FormStateValueSetter<ValidateFunction<Value> | undefined> = (
     name,
     validate
   ) =>
@@ -68,7 +68,7 @@ export const FormProvider: FC = ({ children }) => {
     for (let name in validateFunctions) {
       const value = values[name] || ''
       const validate = validateFunctions[name]
-      const newError = validate(value)
+      const newError = validate && validate(value)
 
       if (newError) newErrors[name] = newError
     }
@@ -116,7 +116,7 @@ export const FormProvider: FC = ({ children }) => {
         error: errors[name],
         setValue: (value) => setValue(name, value),
         setError: (error) => setError(name, error),
-        setValidateFunction: (fn) => setValidateFunction(name, fn),
+        setValidateFunction: (fn?) => setValidateFunction(name, fn),
         defaultValue: defaultValues[name],
         setDefaultValue: (defaultValue) => setDefaultValue(name, defaultValue),
         setResetFieldFunction,
