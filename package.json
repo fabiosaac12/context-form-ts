@@ -1,7 +1,7 @@
 {
   "name": "context-form-ts",
   "version": "1.0.0",
-  "description": "Made with create-react-library",
+  "description": "A helpful library to easily and effectively manage forms with react context",
   "author": "fabiosaac12",
   "license": "MIT",
   "repository": "fabiosaac12/context-form-ts",
