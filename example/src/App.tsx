@@ -7,6 +7,7 @@ import {
   max,
   numeric,
   compose,
+  SubmitFunction,
 } from 'context-form-ts';
 
 const inputs = [
@@ -37,13 +38,23 @@ const inputs = [
   },
 ];
 
+interface Values {
+  name: string;
+  lastName: string;
+  country: string;
+  age: number;
+}
+
 const App = withForm(() => {
   const form = useForm();
+
+  const onSubmit: SubmitFunction = (values: Values) =>
+    alert(JSON.stringify(values, null, 4));
 
   return (
     <>
       {inputs.map((input) => (
-        <Field {...input}>
+        <Field key={input.name} {...input}>
           {({ input, info, ...props }) => (
             <div className="inputContainer">
               <input {...input} className="input" {...props} />
@@ -54,7 +65,7 @@ const App = withForm(() => {
           )}
         </Field>
       ))}
-      <button onClick={form.handleSubmit(console.log)}>Submit</button>
+      <button onClick={form.handleSubmit(onSubmit)}>Submit</button>
     </>
   );
 });

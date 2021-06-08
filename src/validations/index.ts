@@ -68,16 +68,12 @@ export const compose = <T>(
   for (let fn of functions) {
     const newError = fn(value);
 
-    console.log(newError);
-
     if (newError) {
       error = newError;
 
       if (typeof newError === 'string') break;
     }
   }
-
-  console.log(error);
 
   if (error) return error;
 };

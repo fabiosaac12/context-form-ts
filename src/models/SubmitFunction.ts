@@ -1,4 +1,1 @@
-import { FormState } from './FormState';
-import { Value } from './Value';
-
-export type SubmitFunction = (values: FormState<Value>) => void;
+export declare type SubmitFunction = (values: any) => void;
