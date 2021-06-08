@@ -1,6 +1,12 @@
 import { ValidateFunction } from '../models/ValidateFunction';
 import { ErrorMessage } from '../models/ErrorMessage';
 
+export const required = (
+  errorMessage: ErrorMessage = true,
+): ValidateFunction<any> => (value) => {
+  if (!value) return errorMessage;
+};
+
 export const min = (
   n: number,
   errorMessage: ErrorMessage = true,

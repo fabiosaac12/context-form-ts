@@ -6,7 +6,7 @@ import { Value } from './models/Value';
 import {
   FieldChildren,
   FieldChildrenProps,
-  Field as FieldType,
+  FieldType,
 } from './models/Field';
 
 export interface InnerFieldProps {

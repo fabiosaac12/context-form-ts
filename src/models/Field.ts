@@ -3,7 +3,7 @@ import { ValidateFunction } from './ValidateFunction';
 import { ErrorMessage } from './ErrorMessage';
 import { ChangeEvent } from 'react';
 
-export type Field = React.FC<FieldProps>;
+export type FieldType = React.FC<FieldProps>;
 
 interface FieldProps {
   name: string;

@@ -8,7 +8,6 @@ import {
   numeric,
   compose,
 } from 'context-form-ts';
-import { FieldChildren } from '../../dist/models/Field';
 
 const inputs = [
   {
@@ -38,22 +37,22 @@ const inputs = [
   },
 ];
 
-const renderInput: FieldChildren = ({ input, info, ...props }) => (
-  <div className="inputContainer">
-    <input {...input} className="input" {...props} />
-    {!!info.error && info.hasBeenTouched && (
-      <div className="error">{info.error}</div>
-    )}
-  </div>
-);
-
 const App = withForm(() => {
   const form = useForm();
 
   return (
     <>
       {inputs.map((input) => (
-        <Field {...input}>{renderInput}</Field>
+        <Field {...input}>
+          {({ input, info, ...props }) => (
+            <div className="inputContainer">
+              <input {...input} className="input" {...props} />
+              {!!info.error && info.hasBeenTouched && (
+                <div className="error">{info.error}</div>
+              )}
+            </div>
+          )}
+        </Field>
       ))}
       <button onClick={form.handleSubmit(console.log)}>Submit</button>
     </>
